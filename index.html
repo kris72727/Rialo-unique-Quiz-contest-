@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rialo Club Knowledge Challenge</title>
+    <style>
+        /* Rialo Aesthetic Colors */
+        :root {
+            --rialo-background: #f5f0e3; /* Light Beige/Cream */
+            --rialo-primary: #000000; /* Black */
+            --rialo-text: #000000;
+            --rialo-correct: #388e3c; /* Green for correct answer */
+            --rialo-incorrect: #d32f2f; /* Red for incorrect answer */
+            --rialo-bonus: #0099ff; /* Blue for bonus/timer */
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: var(--rialo-background);
+            color: var(--rialo-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #quiz-container {
+            width: 100%;
+            max-width: 700px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 8px 8px 0 var(--rialo-primary);
+            border: 2px solid var(--rialo-primary);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--rialo-primary);
+            margin-bottom: 20px;
+        }
+
+        /* Header for Status */
+        #status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+        }
+        #timer-display { color: var(--rialo-incorrect); font-size: 1.1em; }
+        #points-display { color: var(--rialo-bonus); font-size: 1.1em; }
+
+
+        #question-display {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .answer-option {
+            background-color: var(--rialo-background);
+            color: var(--rialo-primary);
+            border: 1px solid var(--rialo-primary);
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .answer-option:hover { background-color: #e0d9c9; }
+        .answer-option.correct { background-color: var(--rialo-correct); color: white; border-color: var(--rialo-correct); }
+        .answer-option.incorrect { background-color: var(--rialo-incorrect); color: white; border-color: var(--rialo-incorrect); }
+
+        #next-button, #restart-button, #start-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: var(--rialo-primary);
+            color: var(--rialo-background);
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        #start-button { background-color: var(--rialo-bonus); color: white; }
+        #start-button:hover { opacity: 0.9; }
+
+        #next-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        #result-screen { text-align: center; }
+        #result-screen h2 { font-size: 2em; color: var(--rialo-primary); }
+        #result-message { font-size: 1.2em; margin: 15px 0; font-weight: bold; }
+
+        /* Start Screen Styling */
+        #start-screen { text-align: center; }
+        #start-screen p { margin: 15px 0; line-height: 1.4; }
+        #start-screen ul { text-align: left; max-width: 80%; margin: 20px auto; list-style-type: none; padding-left: 0;}
+        #start-screen ul li { margin-bottom: 10px; border-left: 3px solid var(--rialo-bonus); padding-left: 10px; }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Rialo Club Knowledge Challenge</h1>
+        
+        <div id="start-screen">
+            <h2>Welcome, Future RIALO Club Member!</h2>
+            <p>This challenge tests your knowledge of the Rialo Blockchain and Club principles. Pass the challenge to prove your commitment to **Quality > Quantity**!</p>
+            
+            <ul>
+                <li>✅ **Total Questions:** 20</li>
+                <li>⏱️ **Time Limit:** 120 seconds (2 minutes)</li>
+                <li>⭐ **Points System:** 100 Points per correct answer.</li>
+                <li>⚡ **Time Bonus:** You earn 5 bonus points for every full second remaining on the clock!</li>
+            </ul>
+
+            <p>Prove you're ready to contribute. Good luck!</p>
+            <button id="start-button">START RIALO CHALLENGE</button>
+        </div>
+
+        <div id="quiz-area" style="display: none;">
+            <div id="status-header">
+                <div>Points: <span id="points-display">0</span></div>
+                <div>Time Left: <span id="timer-display">120s</span></div>
+            </div>
+
+            <div id="question-display"></div>
+            <div id="options-container"></div>
+            <button id="next-button" disabled>Next Question</button>
+        </div>
+
+        <div id="result-screen" style="display: none;">
+            <h2>Challenge Complete!</h2>
+            <p id="score-summary">You scored 0 out of 20 total questions.</p>
+            <p id="time-summary">Time Bonus: 0 points</p>
+            <p id="final-total" style="font-size: 1.5em; color: var(--rialo-bonus);">Final Score: 0 Rialo Points</p>
+            <p id="result-message"></p>
+            <button id="restart-button">Restart Challenge</button>
+        </div>
+    </div>
+    
+    <script src="rialo_quiz.js"></script>
+</body>
+</html>
